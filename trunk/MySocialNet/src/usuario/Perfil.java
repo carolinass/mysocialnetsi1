@@ -14,13 +14,13 @@ public class Perfil {
 	public Field age = new Field("age");
 	
 	public Perfil(){;
-		this.fields.add(this.aboutMe);
 		this.fields.add(this.contactEmail);
-		this.fields.add(this.country);
-		this.fields.add(this.city);
-		this.fields.add(this.photo);
-		this.fields.add(this.gender);
 		this.fields.add(this.age);
+		this.fields.add(this.photo);
+		this.fields.add(this.aboutMe);
+		this.fields.add(this.gender);
+		this.fields.add(this.city);
+		this.fields.add(this.country);
 	}
 	
 	public String getAboutMe(){

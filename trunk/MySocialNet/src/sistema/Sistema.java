@@ -135,13 +135,13 @@ public class Sistema extends ValidateInput{
 		if(!userIsLogado(user)) throw new UserOffException("Usuário não logado");
 		if(aboutMe == null) aboutMe = "";
 		
+		user.perfil.setContactEmail(contactEmail);
 		user.perfil.setAboutMe(aboutMe);
 		user.perfil.setAge(age);
 		user.perfil.setPhoto(photo);
 		user.perfil.setCountry(country);
 		user.perfil.setCity(city);
 		user.perfil.setGender(gender);
-		user.perfil.setContactEmail(contactEmail);
 		
 	}
 	
@@ -173,8 +173,11 @@ public class Sistema extends ValidateInput{
 		if(!userIsLogado(user)) throw new UserOffException("Usuário não logado");
 		
 		String saida = "";
-		for(Field campo : user.checkProfile(visibility)){
-			saida += campo + " ";
+		ArrayList<Field> campos = user.checkProfile(visibility);
+		for(Field campo : campos){
+			saida += campo.getName() + "=" + campo.getField();
+			if(!campo.equals(campos.get(campos.size()-1)))
+				saida += ",";
 		}
 		return saida;		
 		
@@ -211,6 +214,23 @@ public class Sistema extends ValidateInput{
 		
 		return "";
 		
+	}
+
+	public void removeUserPreference(String login, String preference) throws Exception {
+		Usuario user = findUser(login);
+		if(user == null) throw new UserNotFoundException("Login inexistente");
+		if(!userIsLogado(user)) throw new UserOffException("Usuário não logado");
+		
+		user.removePreference(preference);
+		
+	}
+
+	public String listUserPreferences(String login) throws Exception {
+		Usuario user = findUser(login);
+		if(user == null) throw new UserNotFoundException("Login inexistente");
+		if(!userIsLogado(user)) throw new UserOffException("Usuário não logado");
+		
+		return user.listPreferences();	
 	}
 
 //	/**

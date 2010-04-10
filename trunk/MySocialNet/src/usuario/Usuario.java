@@ -152,6 +152,13 @@ public class Usuario {
 		
 	}
 
+	public void removePreference(String preference) {
+		for (int i = 0; i < this.preferences.size(); i++){
+			if(this.preferences.get(i).equals(preference))
+				this.preferences.remove(i);
+		}
+	}
+	
 	public ArrayList<Field> getCampos(String visibilidade) {
 		ArrayList<Field> campos;
 		if(visibilidade.equals("FRIENDS")){
@@ -168,7 +175,19 @@ public class Usuario {
 		}else{
 			campos = this.checkProfile(visibilidade); 
 		}
+	
 		return campos;
+	}
+
+	public String listPreferences() {
+		String saida = "";
+		if(this.preferences.size() > 0)
+			saida = this.preferences.get(0);
+		for(String preference : this.preferences){
+			if(!preference.equals(this.preferences.get(0)))
+				saida = saida + "," + preference;
+		}
+		return saida;
 	}
 	
 }
