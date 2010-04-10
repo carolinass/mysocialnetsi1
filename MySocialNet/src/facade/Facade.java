@@ -17,8 +17,8 @@ public class Facade {
 		sistema.createUser(name, lastName, email, passwd);
 	}
 	
-	public void getUser(String login) throws Exception{
-		sistema.getUser(login);
+	public String getUser(String login) throws Exception{
+		return sistema.getUser(login);
 	}
 	
 	public void login(String email, String passwd) throws Exception{
@@ -38,15 +38,25 @@ public class Facade {
 		sistema.setFieldPrivacy(login, field, type);
 	}
 	
-	public void checkProfile(String login, String visibility) throws Exception{
-		sistema.checkProfile(login, visibility);
+	public String checkProfile(String login, String visibility) throws Exception{
+		return sistema.checkProfile(login, visibility);
 	}
 	
 	public void addUserPreference(String login, String preference) throws Exception{
 		sistema.addUserPreference(login, preference);
 	}
 	
-	public void viewProfile(String viewer, String profileOwner) throws Exception{
-		sistema.viewProfile(viewer, profileOwner);
+	public void removeUserPreference(String login, String preference) throws Exception{
+		sistema.removeUserPreference(login, preference);
+	}
+	
+//	listUserPreferences login=dev@email.com
+	
+	public String listUserPreferences(String login) throws Exception{
+		return sistema.listUserPreferences(login);
+	}
+	
+	public String viewProfile(String viewer, String profileOwner) throws Exception{
+		return sistema.viewProfile(viewer, profileOwner);
 	}
 }
