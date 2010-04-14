@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="C:/Users/Ana Carolina/Downloads/I&apos;mHere/I&apos;mHere/lib/xstream-1.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ana Carolina/Documents/UFCG/5º periodo/si1/easyaccept.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ana Carolina/Desktop/easyaccept.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ana Carolina/Desktop/xstream-1.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

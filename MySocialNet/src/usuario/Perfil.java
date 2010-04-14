@@ -21,6 +21,11 @@ public class Perfil {
 		this.fields.add(this.gender);
 		this.fields.add(this.city);
 		this.fields.add(this.country);
+		
+		this.aboutMe.setPermission("ALL");
+		this.country.setPermission("ALL");
+		this.city.setPermission("FRIENDS");
+		this.photo.setPermission("ALL");
 	}
 	
 	public String getAboutMe(){
@@ -90,9 +95,13 @@ public class Perfil {
 	}
 
 	public ArrayList<Field> checkProfile(String visibility) {
+		
 		ArrayList<Field> saida = new ArrayList<Field>();
 		for(Field f : this.fields){
-			if(f.getPermission().getName().equals(visibility)) saida.add(f); 
+//			if(f.getPermission().getName().equals(visibility))
+			if(f.getPermission().getName().compareTo(visibility) <= 0){
+				saida.add(f); 
+			}
 		}
 		return saida;
 	}

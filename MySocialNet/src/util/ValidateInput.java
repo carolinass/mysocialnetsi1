@@ -1,5 +1,6 @@
 package util;
 
+import exception.FileNotExportedException;
 import exception.InvalidFieldException;
 import exception.RequiredFieldException;
 
@@ -9,10 +10,11 @@ import exception.RequiredFieldException;
  * @author Pedro Saraiva
  * @author Tiago
  * @author Ettore
+ * @author Emerson
  */
 public class ValidateInput{
 
-	public void validateUser(String name, String lastName, String email, String passwd) throws Exception{
+	protected void validateUser(String name, String lastName, String email, String passwd) throws Exception{
 		if (name == null || name.isEmpty()) throw new RequiredFieldException("Nome do usuário deve ser informado");
 		if (lastName == null || lastName.isEmpty()) throw new RequiredFieldException("Sobrenome do usuário deve ser informado");
 		if (email == null || email.isEmpty()) throw new RequiredFieldException("E-mail do usuário deve ser informado");
@@ -22,7 +24,7 @@ public class ValidateInput{
 		validateEmail(email);
 	}
 	
-	public void validateEmail(String email)throws Exception{
+	protected void validateEmail(String email)throws Exception{
 		boolean achouArroba = false;
 		if(email.charAt(0) == '@') throw new InvalidFieldException("E-mail inválido");
 		
@@ -38,4 +40,8 @@ public class ValidateInput{
 		if (achouArroba == false) throw new InvalidFieldException("E-mail inválido");
 	}
 	
+	protected void validateFile(String fileName) throws Exception{
+		if (fileName == null || fileName.isEmpty()) throw new FileNotExportedException("Falha na exportação do arquivo");
+		if(!fileName.substring(0,6).equals("export")) throw new FileNotExportedException("Falha na exportação do arquivo");
+	}
 }

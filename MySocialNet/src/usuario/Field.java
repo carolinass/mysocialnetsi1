@@ -15,7 +15,6 @@ public class Field {
 	private String nome;
 	
 	public Field(String nome){
-		Permission indefinida = new Permission("INDEFINIDA");
 		Permission all = new Permission("ALL");
 		Permission justMe = new Permission("JUST_ME");
 		Permission friends = new Permission("FRIENDS");
@@ -23,7 +22,7 @@ public class Field {
 		permissoes.add(justMe);
 		permissoes.add(friends);
 		
-		this.permission = indefinida;
+		this.permission = justMe;
 		this.conteudo = "";
 		this.nome = nome;
 	}
