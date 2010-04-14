@@ -15,19 +15,19 @@ public class testEasyAccept {
 
 
             // teste
-            arquivo.add("us1.txt");											//ta dando nullPointer
-            //arquivo.add("us2-adicionarCliente.txt");  						//ta dando nullPointer
-            //arquivo.add("us3-RemoverCliente.txt");							//OK
-            //arquivo.add("us4-RemoverUsuario.txt");							//OK
-            //arquivo.add("us5-AdicionarVeiculo.txt");							//OK
-            //arquivo.add("us6-removerVeiculo.txt");							//ta dando nullPointer
-//            arquivo.add("us7-ConsultarRequisicoesReservasVeiculos.txt");		//OK
-            //arquivo.add("us8-RegistrarAluguelDeVeiculo.txt");
+            
+            arquivo.add("US01.txt");		//OK
+            arquivo.add("US02.txt"); 	    //OK
+            arquivo.add("US03.txt");		//OK
+            arquivo.add("US04.txt");		//OK
+            arquivo.add("US05.txt");		//OK
+            arquivo.add("US06.txt");		//OK
+            arquivo.add("US07.txt");		//faltam 8
+            //arquivo.add("US08.txt");		//faltam 25
 
             // Instancia a fachada do seu sotfware
             Facade facadeUS1 = new Facade();
-            
-            
+                      
 
             // Instancia a fachada do EasyAccept
             EasyAcceptFacade eaFacade = new EasyAcceptFacade(facadeUS1, arquivo);

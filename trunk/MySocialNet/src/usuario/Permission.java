@@ -2,6 +2,14 @@ package usuario;
 
 import java.util.ArrayList;
 
+/**
+ * Classe que implementa as permissoes de visualizacao do campo
+ * @author Ana Carolina
+ * @author Pedro Saraiva
+ * @author Ettore
+ * @author Tiago
+ * @author Emerson
+ */
 public class Permission {
 	
 	private ArrayList<Field> campos = new ArrayList<Field>();
