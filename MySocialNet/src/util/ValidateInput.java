@@ -1,9 +1,8 @@
 package util;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
+import java.util.Iterator;
 
 import exception.FileNotExportedException;
 import exception.InvalidFieldException;
@@ -55,11 +54,12 @@ public class ValidateInput{
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 
 		String[] anterior = reader.readLine().split(",");
-
+		
 		while(true){
-			String[] atual = reader.readLine().split(",");
-			if(atual.length == 0)
+			String atualString = reader.readLine();
+			if(atualString == null)
 				break;
+			String[] atual = atualString.split(",");
 			if(atual.length != anterior.length) throw new InvalidFileException("Arquivo não suportado pelo sistema");
 		}
 		

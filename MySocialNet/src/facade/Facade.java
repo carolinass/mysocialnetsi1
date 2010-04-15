@@ -125,7 +125,7 @@ public class Facade {
 		sistema.exportFriendList(login, fileName, exportedFields);
 	}
 	
-	public void restoreFriendList(String login, String file) throws Exception{
-		sistema.restoreFriendList(login, file);
+	public String restoreFriendList(String login, String file) throws Exception{
+		return sistema.restoreFriendList(login, file);
 	}
 }
