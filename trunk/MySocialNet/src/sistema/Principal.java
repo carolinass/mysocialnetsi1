@@ -27,9 +27,10 @@ public class Principal {
 
 		case 1:
 			login();
-
 		case 2:
 			createUser();
+		case 3:
+			System.exit(0);
 		}
 	}
 
@@ -76,22 +77,77 @@ public class Principal {
 		System.out.println("2_Enviar convite de amizade");
 		System.out.println("3_Visualizar convites pendentes");
 		System.out.println("4_Visualizar convites recebidos");
-		System.out.println("5_Logoff");
+		System.out.println("5_Aceitar um convite de amizade");
+		System.out.println("6_Rejeitar um convite de amizade");
+		System.out.println("7_Editar perfil");
+		System.out.println("8_Listar amigos");
+		System.out.println("9_Logoff");
 
 		switch(sc.nextInt()){
 
 		case 1:
-			conviteAmizade(email);
-		case 2:
 			procurarAmigo(email);
+		case 2:
+			conviteAmizade(email);
 		case 3:
 			verConvitesEnviados(email);
 		case 4:
 			verConvitesRecebidos(email);
 		case 5:
+			aceitarConvite(email);
+		case 6:
+			rejeitarConvite(email);
+		case 7:
+			editarPerfil(email);
+		case 8:
+			listarAmigos(email);
+		case 9:
 			logoff(email);
 		}
 
+
+	}
+
+	private static void listarAmigos(String email) throws Exception {
+		s.listFriends(email);
+		beginProfile(email);
+
+	}
+
+	private static void editarPerfil(String email) {
+		System.out.println();
+		System.out.println(">>>>> EDITAR PERFIL <<<<<");
+		System.out.println("1_Editar descrição");
+		System.out.println("2_Editar email para contato");
+		System.out.println("3_Editar idade");
+		System.out.println("4_Editar foto");
+		System.out.println("5_Editar sexo");
+		System.out.println("6_Editar cidade");
+		System.out.println("7_Editar país");
+	}
+
+	private static void rejeitarConvite(String email) throws Exception {
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println();
+		System.out.println(">>>>> REJEITAR PEDIDO DE AMIZADE <<<<<");
+		System.out.print("_Amigo: ");
+		String contact = sc.nextLine();
+
+		s.declineFriendshipRequest(email, contact);
+	}
+
+	private static void aceitarConvite(String login) throws Exception {
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println();
+		System.out.println(">>>>> ACEITAR PEDIDO DE AMIZADE <<<<<");
+		System.out.print("_Amigo: ");
+		String contact = sc.nextLine();
+		System.out.print("_Grupo: ");
+		String group = sc.nextLine();
+
+		s.acceptFriendshipRequest(login, contact, group);
 
 	}
 
@@ -117,7 +173,7 @@ public class Principal {
 		System.out.println(">>>>> BUSCAR AMIGO <<<<<");
 		System.out.print("_Amigo: ");
 		String friend = sc.nextLine();
-		
+
 		System.out.println(s.findNewFriend(login, friend));
 		beginProfile(login);
 
