@@ -19,6 +19,14 @@ import exception.RequiredFieldException;
  */
 public class ValidateInput{
 
+	/**
+	 * Valida as entradas nome, sobrenome e email do usuario a ser criado
+	 * @param name
+	 * @param lastName
+	 * @param email
+	 * @param passwd
+	 * @throws Exception
+	 */
 	protected void validateUser(String name, String lastName, String email, String passwd) throws Exception{
 		if (name == null || name.isEmpty()) throw new RequiredFieldException("Nome do usuário deve ser informado");
 		if (lastName == null || lastName.isEmpty()) throw new RequiredFieldException("Sobrenome do usuário deve ser informado");
@@ -29,6 +37,11 @@ public class ValidateInput{
 		validateEmail(email);
 	}
 
+	/**
+	 * Valida o email passado por parametro
+	 * @param email
+	 * @throws Exception
+	 */
 	protected void validateEmail(String email)throws Exception{
 		boolean achouArroba = false;
 		if(email.charAt(0) == '@') throw new InvalidFieldException("E-mail inválido");
@@ -45,11 +58,22 @@ public class ValidateInput{
 		if (achouArroba == false) throw new InvalidFieldException("E-mail inválido");
 	}
 
+	/**
+	 * Valida o arquivo a ser exportado
+	 * @param fileName
+	 * @param message
+	 * @throws Exception
+	 */
 	protected void validateFile(String fileName, String message) throws Exception{
 		if (fileName == null || fileName.isEmpty()) throw new FileNotExportedException(message);
 		if(!fileName.substring(0,6).equals("export")) throw new FileNotExportedException(message);
 	}
 
+	/**
+	 * Valida o arquivo a ser lido
+	 * @param file
+	 * @throws Exception
+	 */
 	protected void validateFileReader(String file) throws Exception{
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 

@@ -15,14 +15,26 @@ public class Permission {
 	private ArrayList<Field> campos = new ArrayList<Field>();
 	private String name;
 	
+	/**
+	 * Metodo Construtor
+	 * @param name
+	 */
 	public Permission(String name){	
 		this.name = name;
 	}
 	
+	/**
+	 * Adiciona Campo
+	 * @param campo
+	 */
 	public void addCampo(Field campo){
 		campos.add(campo);
 	}
 	
+	/**
+	 * 
+	 * @return name
+	 */
 	public String getName(){
 		return this.name;
 	}

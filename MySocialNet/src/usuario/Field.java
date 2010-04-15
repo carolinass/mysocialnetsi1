@@ -5,7 +5,10 @@ import java.util.ArrayList;
 /**
  * Classe que representa um campo do perfil do usuario
  * @author Ana Carolina
- *
+ * @author Pedro Saraiva
+ * @author Tiago
+ * @author Ettore
+ * @author Emerson
  */
 public class Field {
 	
@@ -14,6 +17,10 @@ public class Field {
 	private String conteudo;
 	private String nome;
 	
+	/**
+	 * Metodo Construtor
+	 * @param nome
+	 */
 	public Field(String nome){
 		Permission all = new Permission("ALL");
 		Permission justMe = new Permission("JUST_ME");

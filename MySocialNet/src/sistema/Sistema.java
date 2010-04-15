@@ -443,6 +443,14 @@ public class Sistema extends ValidateInput{
 		contato.removeSend(usuario);
 	}
 
+	/**
+	 * Busca um membro do grupo
+	 * @param login
+	 * @param friend
+	 * @param group
+	 * @return membro do grupo
+	 * @throws Exception
+	 */
 	public String findGroupMember(String login, String friend, String group) throws Exception{
 
 		try{
@@ -456,6 +464,14 @@ public class Sistema extends ValidateInput{
 		return usuario.findGroupMember(amigo, group);
 	}
 
+	/**
+	 * Busca um membro do grupo
+	 * @param login
+	 * @param friend
+	 * @param group
+	 * @return membro do grupo
+	 * @throws Exception
+	 */
 	public String searchGroupMember(String login,String friend,String group) throws Exception{
 
 
@@ -471,6 +487,12 @@ public class Sistema extends ValidateInput{
 		return saida;
 	}
 
+	/**
+	 * Remove um usuario da lista de amigos
+	 * @param email
+	 * @param friend
+	 * @throws Exception
+	 */
 	public void removeFriend(String email, String friend) throws Exception {
 		Usuario usuario = trataUsuario(email, "Login inexistente", "Usuário não logado");;
 		Usuario amigo = findUser(friend);
@@ -692,6 +714,13 @@ public class Sistema extends ValidateInput{
 		}
 	}
 
+	/**
+	 * Busca um amigo
+	 * @param email
+	 * @param friend
+	 * @return profile do amigo
+	 * @throws Exception
+	 */
 	public String getFriend(String email, String friend) throws Exception {
 
 		Usuario usuario = trataUsuario(email, "Login inexistente", "Usuário não logado");
@@ -710,6 +739,13 @@ public class Sistema extends ValidateInput{
 		return view(email,friend);
 	}
 
+	/**
+	 * Exibe profile do amigo
+	 * @param email
+	 * @param friend
+	 * @return profile do amigo
+	 * @throws Exception
+	 */
 	private String view(String email, String friend) throws Exception{
 
 		Usuario amigo = findUser(friend);
@@ -717,6 +753,13 @@ public class Sistema extends ValidateInput{
 		+ viewProfile(email,friend);
 	}
 
+	/**
+	 * Busca um amigo
+	 * @param usuario
+	 * @param friend
+	 * @return profile do amigo
+	 * @throws Exception
+	 */
 	private String findFriend(Usuario usuario, String friend) throws Exception {
 		String saida = "";
 
@@ -855,6 +898,13 @@ public class Sistema extends ValidateInput{
 		out.close();
 	}
 
+	/**
+	 * Restaura a lista de amigos
+	 * @param login
+	 * @param file
+	 * @return String saida
+	 * @throws Exception
+	 */
 	public String restoreFriendList(String login, String file) throws Exception {
 		Usuario usuario = trataUsuario(login, "Login inexistente", "Usuário não logado");
 		validateFile(file, "Arquivo não encontrado");
@@ -890,6 +940,11 @@ public class Sistema extends ValidateInput{
 		return saida.substring(0, saida.length()-1);
 	}
 
+	/**
+	 * Busca um amigo nos usuarios
+	 * @param amigoString
+	 * @return Usuario user
+	 */
 	private Usuario getFriend(String amigoString) {
 		for(Usuario user : this.users){
 			if((user.getNome() + " " + user.getSobrenome()).equals(amigoString))
