@@ -98,7 +98,7 @@ public class Principal {
 		case 6:
 			rejeitarConvite(email);
 		case 7:
-			editarPerfil(email);
+			editarPerfil(user);
 		case 8:
 			listarAmigos(email);
 		case 9:
@@ -114,7 +114,9 @@ public class Principal {
 
 	}
 
-	private static void editarPerfil(String email) {
+	private static void editarPerfil(Usuario user) throws Exception {
+		Scanner sc = new Scanner(System.in);
+
 		System.out.println();
 		System.out.println(">>>>> EDITAR PERFIL <<<<<");
 		System.out.println("1_Editar descrição");
@@ -124,6 +126,119 @@ public class Principal {
 		System.out.println("5_Editar sexo");
 		System.out.println("6_Editar cidade");
 		System.out.println("7_Editar país");
+		System.out.println("8_Voltar");
+
+		switch(sc.nextInt()){
+
+		case 1:
+			editarDescricao(user);
+		case 2:
+			editarEmail(user);
+		case 3:
+			editarIdade(user);
+		case 4:
+			editarFoto(user);
+		case 5:
+			editarSexo(user);
+		case 6:
+			editarCidade(user);
+		case 7:
+			editarPais(user);
+		case 8:
+			beginProfile(user.getEmail());
+		}
+	}
+
+	private static void editarPais(Usuario user) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.println(">>>>> Editar País <<<<<");
+		System.out.println("País: ");
+		String country = sc.nextLine();
+		System.out.println("Visibilidade: (ALL, JUST_ME ou FRIENDS)");
+		String visibilidade = sc.nextLine();
+		
+		user.perfil.country.setPermission(visibilidade);
+		user.perfil.setCountry(country);		
+	}
+
+	private static void editarCidade(Usuario user) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.println(">>>>> Editar Cidade <<<<<");
+		System.out.println("Cidade: ");
+		String city = sc.nextLine();
+		System.out.println("Visibilidade: (ALL, JUST_ME ou FRIENDS)");
+		String visibilidade = sc.nextLine();
+		
+		user.perfil.city.setPermission(visibilidade);
+		user.perfil.setCity(city);
+		
+	}
+
+	private static void editarSexo(Usuario user) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.println(">>>>> Editar Sexo <<<<<");
+		System.out.println("Sexo: ");
+		String gender = sc.nextLine();
+		System.out.println("Visibilidade: (ALL, JUST_ME ou FRIENDS)");
+		String visibilidade = sc.nextLine();
+		
+		user.perfil.gender.setPermission(visibilidade);
+		user.perfil.setGender(gender);
+	}
+
+	private static void editarFoto(Usuario user) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.println(">>>>> Editar Foto <<<<<");
+		System.out.println("Nova foto: ");
+		String photo = sc.nextLine();
+		System.out.println("Visibilidade: (ALL, JUST_ME ou FRIENDS)");
+		String visibilidade = sc.nextLine();
+		
+		user.perfil.photo.setPermission(visibilidade);
+		user.perfil.setPhoto(photo);
+	}
+
+	private static void editarIdade(Usuario user) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.println(">>>>> Editar Idade <<<<<");
+		System.out.println("Idade: ");
+		String idade = sc.nextLine();
+		System.out.println("Visibilidade: (ALL, JUST_ME ou FRIENDS)");
+		String visibilidade = sc.nextLine();
+		
+		user.perfil.age.setPermission(visibilidade);
+		user.perfil.setAge(idade);
+	}
+
+	private static void editarEmail(Usuario user) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.println(">>>>> Editar Email <<<<<");
+		System.out.println("Novo email: ");
+		String email = sc.nextLine();
+		System.out.println("Visibilidade: (ALL, JUST_ME ou FRIENDS)");
+		String visibilidade = sc.nextLine();
+		
+		user.perfil.contactEmail.setPermission(visibilidade);
+		user.perfil.setContactEmail(email);
+	}
+
+	private static void editarDescricao(Usuario user) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.println(">>>>> Editar Descricao <<<<<");
+		System.out.println("Nova descricao: ");
+		String about = sc.nextLine();
+		System.out.println("Visibilidade: (ALL, JUST_ME ou FRIENDS)");
+		String visibilidade = sc.nextLine();
+		
+		user.perfil.aboutMe.setPermission(visibilidade);
+		user.perfil.setAboutMe(about);
 	}
 
 	private static void rejeitarConvite(String email) throws Exception {
