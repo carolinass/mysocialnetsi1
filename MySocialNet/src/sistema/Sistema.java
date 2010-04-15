@@ -1,10 +1,20 @@
 package sistema;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Set;
 
 import Data.DataBase;
 
@@ -15,6 +25,7 @@ import usuario.Usuario;
 import util.ValidateInput;
 import exception.AlreadyFriendsException;
 import exception.EmptyGroupException;
+import exception.InvalidFileException;
 import exception.ItemNotFoundException;
 import exception.RequestAlreadySentException;
 import exception.RequiredFieldException;
@@ -283,7 +294,7 @@ public class Sistema extends ValidateInput{
 	 * Encontra um novo amigo
 	 * @param login
 	 * @param friend
-	 * @return
+	 * @return profile do usuario procurado
 	 * @throws Exception
 	 */
 	public String findNewFriend(String login, String friend)throws Exception {
@@ -637,6 +648,33 @@ public class Sistema extends ValidateInput{
 	//*******************
 
 	/**
+	 * Implementacao do BubbleSort
+	 * @param amigos
+	 */
+	public Object[] ordenaBubble(Object[] amigos) {
+		for (int i = 0; i < amigos.length-1; i++) {
+			for (int j = 0; j < amigos.length-1; j++) {
+				if (((Usuario) amigos[j]).getNome().compareTo(((Usuario) amigos[j+1]).getNome()) > 0) {
+					swap(amigos, j, j+1);
+				}
+			}
+		}
+		return amigos;
+	}
+	
+	/**
+	 * Troca posicao de elementos num vetor
+	 * @param amigos
+	 * @param i
+	 * @param j
+	 */
+	public void swap(Object[] amigos, int i, int j){
+		  Object temp = amigos[i];
+		  amigos[i] = amigos[j];
+		  amigos[j] = temp;
+	}
+	
+	/**
 	 * Verifica se existe alguma irregularidade no usuario
 	 * @param login
 	 * @param message
@@ -751,13 +789,90 @@ public class Sistema extends ValidateInput{
 	//*   MANIPULACAO DE DADOS   *
 	//****************************
 	
+	/**
+	 * Exporta usuarios
+	 * @param login
+	 * @param fileName
+	 * @param exportedFields
+	 * @throws Exception
+	 */
 	public void exportFriendList(String login, String fileName,
 			String exportedFields) throws Exception {
 		
 		Usuario usuario = trataUsuario(login, "Login inexistente", "Usuário não logado");
-		validateFile(fileName);
+		validateFile(fileName, "Falha na exportação do arquivo");
 		
+		if(exportedFields.isEmpty()){
+			exportFriendList(usuario, fileName);
+			return;
+		}
 		
+		String[] fields = exportedFields.split(",");
 		
+		Object[] amigos = usuario.amigos.keySet().toArray();
+		amigos = ordenaBubble(amigos);
+		
+		exportar(fileName, fields, amigos);
 	}
+	
+	/**
+	 * Exporta usuarios
+	 * @param login
+	 * @param fileName
+	 * @param exportedFields
+	 * @throws Exception
+	 */
+	public void exportFriendList(Usuario usuario, String fileName) throws IOException{
+		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)));
+	     
+		String linha = "name" + "," + "lastName";
+		out.write(linha + "\n");
+		Object[] amigos = usuario.amigos.keySet().toArray();
+		amigos = ordenaBubble(amigos);
+		
+		for(Object user : amigos){
+			linha = ((Usuario)user).getNome() + "," + ((Usuario)user).getSobrenome();
+			out.write(linha + "\n");
+		}
+		
+		out.close();
+	}
+
+	/**
+	 * Exporta usuarios
+	 * @param fileName
+	 * @param fields
+	 * @param amigos
+	 * @throws Exception
+	 */
+	private void exportar(String fileName, String[] fields, Object[] amigos) throws Exception{		
+		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)));
+	     
+		String linha = "name" + "," + "lastName";
+		for(String field : fields){
+			linha += "," + field;
+		}
+		
+		out.write(linha + "\n");
+		
+		for(Object user : amigos){
+			linha = ((Usuario)user).getNome() + "," + ((Usuario)user).getSobrenome();
+			for(String field : fields){
+				Field campo = ((Usuario)user).getCampo(field);
+				linha += "," + campo.getField();
+			}
+			out.write(linha + "\n");
+			linha = "";
+		}
+		
+		out.close();
+	}
+
+	public void restoreFriendList(String login, String file) throws Exception {
+		Usuario usuario = trataUsuario(login, "Login inexistente", "Usuário não logado");
+		validateFile(file, "Arquivo não encontrado");
+		
+		validateFileReader(file);
+	}
+	
 }

@@ -22,8 +22,8 @@ public class testEasyAccept {
             arquivo.add("US04.txt");		//OK
             arquivo.add("US05.txt");		//OK
             arquivo.add("US06.txt");		//OK
-            arquivo.add("US07.txt");		//faltam 8
-            //arquivo.add("US08.txt");		//faltam 25
+            arquivo.add("US07.txt");		//OK
+            arquivo.add("US08.txt");		//faltam 25
 
             // Instancia a fachada do seu sotfware
             Facade facadeUS1 = new Facade();
