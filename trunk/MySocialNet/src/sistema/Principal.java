@@ -4,6 +4,14 @@ import java.util.Scanner;
 
 import usuario.Usuario;
 
+/**
+ * Classe inicial do programa
+ * @author Ana Carolina
+ * @author Pedro Saraiva
+ * @author Tiago
+ * @author Ettore
+ * @author Emerson
+ */
 public class Principal {
 
 	private static Sistema s;

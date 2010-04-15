@@ -8,11 +8,11 @@ import exception.RequestAlreadySentException;
 
 /**
  * Classe que implementa as funcoes de um usuario
- * @author Ana Carolina Cabral
+ * @author Ana Carolina
  * @author Pedro Saraiva
  * @author Tiago
  * @author Ettore
- * @version 1.0
+ * @author Emerson
  */
 public class Usuario {
 
@@ -385,6 +385,11 @@ public class Usuario {
 		return campos;
 	}
 	
+	/**
+	 * Retorna o campo passado por parametro como string
+	 * @param campo
+	 * @return field
+	 */
 	public Field getCampo(String campo){
 		return this.perfil.getCampo(campo);
 	}
