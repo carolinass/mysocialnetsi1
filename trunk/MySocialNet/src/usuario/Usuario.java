@@ -384,4 +384,8 @@ public class Usuario {
 
 		return campos;
 	}
+	
+	public Field getCampo(String campo){
+		return this.perfil.getCampo(campo);
+	}
 }

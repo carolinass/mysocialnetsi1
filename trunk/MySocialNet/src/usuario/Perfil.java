@@ -98,12 +98,19 @@ public class Perfil {
 		
 		ArrayList<Field> saida = new ArrayList<Field>();
 		for(Field f : this.fields){
-//			if(f.getPermission().getName().equals(visibility))
 			if(f.getPermission().getName().compareTo(visibility) <= 0){
 				saida.add(f); 
 			}
 		}
 		return saida;
+	}
+
+	public Field getCampo(String campo) {
+		for(Field field : this.fields){
+			if(field.getName().equals(campo))
+				return field;
+		}
+		return null;
 	}
 
 }
