@@ -67,7 +67,7 @@ public class Sistema extends ValidateInput{
 	 * @return Usuario user
 	 * @throws Exception
 	 */
-	private Usuario findUser(String email) throws Exception{
+	public Usuario findUser(String email) throws Exception{
 		Usuario user = null;
 		for (Usuario u : users){
 			if(u.email.equals(email)){
