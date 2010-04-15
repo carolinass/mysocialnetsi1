@@ -199,8 +199,8 @@ public class Usuario {
 	 * @throws RequestAlreadySentException
 	 */
 	public void validateRequest(Usuario requisitado) throws Exception{		
-		if(this.isFriend(requisitado)) throw new AlreadyFriendsException("Usuïário " + requisitado.getNome() + " " + requisitado.getSobrenome() +
-				  								" e " + this.nome + " " + this.sobrenome + " já são amigos");
+		if(this.isFriend(requisitado)) throw new AlreadyFriendsException("Usuários " + this.nome + " " + this.sobrenome +
+				  								" e " + requisitado.getNome() + " " + requisitado.getSobrenome() + " já são amigos");
 	
 		for(Pedido pedido : this.convitesPendentesEnviados){
 			if(pedido.getRequisitado().getEmail().equals(requisitado.getEmail()))

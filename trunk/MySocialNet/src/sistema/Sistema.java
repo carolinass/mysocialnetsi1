@@ -2,21 +2,11 @@ package sistema;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
-
-import Data.DataBase;
 
 import usuario.Field;
 import usuario.Grupo;
@@ -403,8 +393,8 @@ public class Sistema extends ValidateInput{
 			return "Não há nenhuma solicitação de amizade pendente";
 
 		for(Pedido pedido : usuario.convitesPendentesEnviados){
-			Usuario pendente = pedido.getRequisitado();
-			saida += pendente.getEmail() + ";";
+			String pendente = pedido.getRequisitado().getEmail();
+			saida += pendente + ",";
 		}
 
 		return saida.substring(0,saida.length() - 1);
@@ -475,13 +465,12 @@ public class Sistema extends ValidateInput{
 		for(Usuario user : this.users){
 
 			if(((user.getNome() + " " + user.getSobrenome()).toLowerCase()).equals(friend.toLowerCase())){
-				//saida += user.getNome() + "," + "Sobrenome=" + user.getSobrenome();
 				saida = usuario.findGroupMember(user, group);
 			}
 		}
 		return saida;
 	}
-	
+
 	public void removeFriend(String email, String friend) throws Exception {
 		Usuario usuario = trataUsuario(email, "Login inexistente", "Usuário não logado");;
 		Usuario amigo = findUser(friend);
@@ -661,7 +650,7 @@ public class Sistema extends ValidateInput{
 		}
 		return amigos;
 	}
-	
+
 	/**
 	 * Troca posicao de elementos num vetor
 	 * @param amigos
@@ -669,11 +658,11 @@ public class Sistema extends ValidateInput{
 	 * @param j
 	 */
 	public void swap(Object[] amigos, int i, int j){
-		  Object temp = amigos[i];
-		  amigos[i] = amigos[j];
-		  amigos[j] = temp;
+		Object temp = amigos[i];
+		amigos[i] = amigos[j];
+		amigos[j] = temp;
 	}
-	
+
 	/**
 	 * Verifica se existe alguma irregularidade no usuario
 	 * @param login
@@ -741,7 +730,7 @@ public class Sistema extends ValidateInput{
 		if(saida.equals("")) return null;
 		return saida;
 	}
-	
+
 	/**
 	 * Verifica se um usuario eh recomendado para ser amigo de outro
 	 * @param usuario
@@ -749,16 +738,14 @@ public class Sistema extends ValidateInput{
 	 * @return true or false
 	 */
 	private boolean ehRecomendado(Usuario usuario, Usuario usuario2) {
-		
+
 		if (usuario.isFriend(usuario2)){
-			//System.out.println(usuario.getNome() +" amigo "+ usuario2.getNome());
 			return false;
 		}
 		if(usuario.equals(usuario2)){
-			//System.out.println(usuario.getNome() +" = "+ usuario2.getNome());
 			return false;
 		}
-		
+
 		ArrayList<String> uniao = usuario2.preferences;
 		ArrayList<String> interseccao = new ArrayList<String>();
 
@@ -772,7 +759,7 @@ public class Sistema extends ValidateInput{
 		if(uniao.size()==0){
 			return true;
 		}
-		
+
 		if(interseccao.size()/uniao.size() >= 0.35){
 			return true;
 		}
@@ -784,11 +771,11 @@ public class Sistema extends ValidateInput{
 		users.clear();	
 	}
 
-	
+
 	//****************************
 	//*   MANIPULACAO DE DADOS   *
 	//****************************
-	
+
 	/**
 	 * Exporta usuarios
 	 * @param login
@@ -798,23 +785,23 @@ public class Sistema extends ValidateInput{
 	 */
 	public void exportFriendList(String login, String fileName,
 			String exportedFields) throws Exception {
-		
+
 		Usuario usuario = trataUsuario(login, "Login inexistente", "Usuário não logado");
 		validateFile(fileName, "Falha na exportação do arquivo");
-		
+
 		if(exportedFields.isEmpty()){
 			exportFriendList(usuario, fileName);
 			return;
 		}
-		
+
 		String[] fields = exportedFields.split(",");
-		
+
 		Object[] amigos = usuario.amigos.keySet().toArray();
 		amigos = ordenaBubble(amigos);
-		
+
 		exportar(fileName, fields, amigos);
 	}
-	
+
 	/**
 	 * Exporta usuarios
 	 * @param login
@@ -824,17 +811,17 @@ public class Sistema extends ValidateInput{
 	 */
 	public void exportFriendList(Usuario usuario, String fileName) throws IOException{
 		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)));
-	     
+
 		String linha = "name" + "," + "lastName";
 		out.write(linha + "\n");
 		Object[] amigos = usuario.amigos.keySet().toArray();
 		amigos = ordenaBubble(amigos);
-		
+
 		for(Object user : amigos){
 			linha = ((Usuario)user).getNome() + "," + ((Usuario)user).getSobrenome();
 			out.write(linha + "\n");
 		}
-		
+
 		out.close();
 	}
 
@@ -847,14 +834,14 @@ public class Sistema extends ValidateInput{
 	 */
 	private void exportar(String fileName, String[] fields, Object[] amigos) throws Exception{		
 		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)));
-	     
+
 		String linha = "name" + "," + "lastName";
 		for(String field : fields){
 			linha += "," + field;
 		}
-		
+
 		out.write(linha + "\n");
-		
+
 		for(Object user : amigos){
 			linha = ((Usuario)user).getNome() + "," + ((Usuario)user).getSobrenome();
 			for(String field : fields){
@@ -864,15 +851,51 @@ public class Sistema extends ValidateInput{
 			out.write(linha + "\n");
 			linha = "";
 		}
-		
+
 		out.close();
 	}
 
-	public void restoreFriendList(String login, String file) throws Exception {
+	public String restoreFriendList(String login, String file) throws Exception {
 		Usuario usuario = trataUsuario(login, "Login inexistente", "Usuário não logado");
 		validateFile(file, "Arquivo não encontrado");
-		
 		validateFileReader(file);
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		
+		String linha = reader.readLine();
+		String saida = "Contatos não importados: ";
+		
+		try {
+			while((linha=reader.readLine()) != null) {
+				String[] linhaLista = linha.split(",");
+				String amigoString = linhaLista[0] + " " + linhaLista[1];
+				
+				Usuario amigo = getFriend(amigoString);
+				
+				if(amigo == null) saida += amigoString + ",";
+				else{
+					try{
+						usuario.validateRequest(amigo);
+						String message = "Olá, " + amigo.getEmail() + " me adicione como seu amigo.";
+						usuario.sendRequest(usuario, amigo, message, "conhecidos");
+					}catch(Exception e){
+						saida = saida + e.getMessage() + ",";
+					}
+				}
+			}
+		}
+		finally {
+			reader.close();
+		}
+		if(saida.equals("Contatos não importados: ")) return "Todos os contatos foram importados";
+		return saida.substring(0, saida.length()-1);
 	}
-	
+
+	private Usuario getFriend(String amigoString) {
+		for(Usuario user : this.users){
+			if((user.getNome() + " " + user.getSobrenome()).equals(amigoString))
+				return user;
+		}
+		return null;
+	}
+
 }
