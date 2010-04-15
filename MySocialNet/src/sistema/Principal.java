@@ -18,7 +18,9 @@ public class Principal {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println();
+		System.out.println("*********************************");
 		System.out.println("********** MySocialNet **********");
+		System.out.println("*********************************");
 		System.out.println("1 - Fazer Login");
 		System.out.println("2 - Novo Usuário");
 		System.out.println("3 - Sair");
@@ -81,7 +83,8 @@ public class Principal {
 		System.out.println("6_Rejeitar um convite de amizade");
 		System.out.println("7_Editar perfil");
 		System.out.println("8_Listar amigos");
-		System.out.println("9_Logoff");
+		System.out.println("9_Ver amigos recomendados");
+		System.out.println("10_Logoff");
 
 		switch(sc.nextInt()){
 
@@ -102,10 +105,17 @@ public class Principal {
 		case 8:
 			listarAmigos(email);
 		case 9:
+			verAmigosRecomendados(email);
+		case 10:
 			logoff(email);
 		}
 
 
+	}
+
+	private static void verAmigosRecomendados(String email) throws Exception {
+		System.out.println(s.getRecommendFriends(email));
+		beginProfile(email);
 	}
 
 	private static void listarAmigos(String email) throws Exception {
@@ -149,7 +159,7 @@ public class Principal {
 		}
 	}
 
-	private static void editarPais(Usuario user) {
+	private static void editarPais(Usuario user) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		System.out.println();
 		System.out.println(">>>>> Editar País <<<<<");
@@ -160,9 +170,10 @@ public class Principal {
 		
 		user.perfil.country.setPermission(visibilidade);
 		user.perfil.setCountry(country);		
+		editarPerfil(user);
 	}
 
-	private static void editarCidade(Usuario user) {
+	private static void editarCidade(Usuario user) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		System.out.println();
 		System.out.println(">>>>> Editar Cidade <<<<<");
@@ -173,10 +184,10 @@ public class Principal {
 		
 		user.perfil.city.setPermission(visibilidade);
 		user.perfil.setCity(city);
-		
+		editarPerfil(user);
 	}
 
-	private static void editarSexo(Usuario user) {
+	private static void editarSexo(Usuario user) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		System.out.println();
 		System.out.println(">>>>> Editar Sexo <<<<<");
@@ -187,9 +198,10 @@ public class Principal {
 		
 		user.perfil.gender.setPermission(visibilidade);
 		user.perfil.setGender(gender);
+		editarPerfil(user);
 	}
 
-	private static void editarFoto(Usuario user) {
+	private static void editarFoto(Usuario user) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		System.out.println();
 		System.out.println(">>>>> Editar Foto <<<<<");
@@ -200,9 +212,10 @@ public class Principal {
 		
 		user.perfil.photo.setPermission(visibilidade);
 		user.perfil.setPhoto(photo);
+		editarPerfil(user);
 	}
 
-	private static void editarIdade(Usuario user) {
+	private static void editarIdade(Usuario user) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		System.out.println();
 		System.out.println(">>>>> Editar Idade <<<<<");
@@ -213,9 +226,10 @@ public class Principal {
 		
 		user.perfil.age.setPermission(visibilidade);
 		user.perfil.setAge(idade);
+		editarPerfil(user);
 	}
 
-	private static void editarEmail(Usuario user) {
+	private static void editarEmail(Usuario user) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		System.out.println();
 		System.out.println(">>>>> Editar Email <<<<<");
@@ -226,9 +240,10 @@ public class Principal {
 		
 		user.perfil.contactEmail.setPermission(visibilidade);
 		user.perfil.setContactEmail(email);
+		editarPerfil(user);
 	}
 
-	private static void editarDescricao(Usuario user) {
+	private static void editarDescricao(Usuario user) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		System.out.println();
 		System.out.println(">>>>> Editar Descricao <<<<<");
@@ -239,6 +254,7 @@ public class Principal {
 		
 		user.perfil.aboutMe.setPermission(visibilidade);
 		user.perfil.setAboutMe(about);
+		editarPerfil(user);
 	}
 
 	private static void rejeitarConvite(String email) throws Exception {
@@ -250,6 +266,7 @@ public class Principal {
 		String contact = sc.nextLine();
 
 		s.declineFriendshipRequest(email, contact);
+		beginProfile(email);
 	}
 
 	private static void aceitarConvite(String login) throws Exception {
@@ -263,7 +280,7 @@ public class Principal {
 		String group = sc.nextLine();
 
 		s.acceptFriendshipRequest(login, contact, group);
-
+		beginProfile(login);
 	}
 
 	private static void logoff(String email) throws Exception {
